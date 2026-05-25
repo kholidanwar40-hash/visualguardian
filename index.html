@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Data Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero" id="top">
+      <nav class="topbar" aria-label="Navigasi utama">
+        <a class="brand" href="#top" aria-label="Secure Data Lab">
+          <span class="brand-mark">SDL</span>
+          <span>Secure Data Lab</span>
+        </a>
+        <div class="nav-links">
+          <a href="#demo">Demo</a>
+          <a href="#algorithm">Algoritma</a>
+          <a href="#presentation">Materi Paparan</a>
+        </div>
+      </nav>
+
+      <section class="hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Project Keamanan Data - Kelompok 5</p>
+          <h1>Visual Data Guardian.</h1>
+          <p class="hero-text">
+            Aplikasi ini menunjukkan bagaimana algoritma keamanan data berjalan: mulai dari Caesar Cipher,
+            XOR Stream Encryption, Data Masking, SHA-256 Hashing, sampai Base64 Encoding.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#demo">Coba Algoritma</a>
+            <a class="button ghost" href="#presentation">Lihat Materi</a>
+          </div>
+        </div>
+
+        <aside class="terminal-card reveal delay-1" aria-label="Preview proses keamanan data">
+          <div class="terminal-header">
+            <span></span><span></span><span></span>
+            <strong>security-flow.log</strong>
+          </div>
+          <pre><code>input     : Data rahasia kelompok 5
+algorithm : XOR stream + secret key
+process   : charCode XOR keyCode
+output    : 2f 04 17 13 41 1a ...
+status    : protected</code></pre>
+        </aside>
+      </section>
+    </header>
+
+    <main>
+      <section class="stats-section reveal" aria-label="Ringkasan fitur">
+        <article>
+          <strong>5</strong>
+          <span>Mode keamanan</span>
+        </article>
+        <article>
+          <strong>Real-time</strong>
+          <span>Proses dan output</span>
+        </article>
+        <article>
+          <strong>Presentable</strong>
+          <span>Siap dipaparkan</span>
+        </article>
+      </section>
+
+      <section class="demo-section" id="demo">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Interactive Lab</p>
+          <h2>Uji algoritma pengamanan data</h2>
+          <p>Pilih algoritma, masukkan data, lalu lihat hasil dan prosesnya.</p>
+        </div>
+
+        <div class="lab-grid">
+          <form class="control-panel reveal" id="securityForm">
+            <label for="mode">Mode keamanan</label>
+            <select id="mode" name="mode">
+              <option value="caesar">Caesar Cipher</option>
+              <option value="xor">XOR Stream Encryption</option>
+              <option value="mask">Data Masking</option>
+              <option value="hash">SHA-256 Hashing</option>
+              <option value="base64">Base64 Encoding</option>
+            </select>
+
+            <label for="inputData">Data yang diamankan</label>
+            <textarea id="inputData" name="inputData" rows="7" placeholder="Contoh: anwar.kelompok5@example.com / 081234567890 / Data rahasia kelompok 5">Data rahasia kelompok 5</textarea>
+
+            <div class="field-row">
+              <div>
+                <label for="shift">Shift Caesar</label>
+                <input id="shift" name="shift" type="number" value="7" min="1" max="25">
+              </div>
+              <div>
+                <label for="secretKey">Kunci XOR</label>
+                <input id="secretKey" name="secretKey" type="text" value="kelompok5-key" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button class="button primary" type="submit">Proses Data</button>
+              <button class="button secondary" id="decryptButton" type="button">Dekripsi Output</button>
+            </div>
+          </form>
+
+          <section class="result-panel reveal delay-1" aria-live="polite">
+            <div class="result-header">
+              <span>Output</span>
+              <button id="copyButton" type="button">Salin</button>
+            </div>
+            <output id="resultOutput">Output akan muncul di sini.</output>
+
+            <div class="process-box">
+              <h3>Proses Algoritma</h3>
+              <ol id="processSteps"></ol>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="algorithm-section" id="algorithm">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Algorithm Breakdown</p>
+          <h2>Bagaimana proses algoritmanya berjalan?</h2>
+        </div>
+
+        <div class="cards-grid">
+          <article class="info-card reveal">
+            <span class="card-index">01</span>
+            <h3>Caesar Cipher</h3>
+            <p>Setiap huruf digeser sejumlah nilai tertentu. Huruf Z akan kembali ke A memakai operasi modulo 26.</p>
+            <code>encrypted = (index + shift) % 26</code>
+          </article>
+          <article class="info-card reveal delay-1">
+            <span class="card-index">02</span>
+            <h3>XOR Stream</h3>
+            <p>Karakter data dan karakter kunci diubah ke kode angka, lalu diproses dengan operasi XOR.</p>
+            <code>cipher = charCode ^ keyCode</code>
+          </article>
+          <article class="info-card reveal delay-2">
+            <span class="card-index">03</span>
+            <h3>Data Masking</h3>
+            <p>Bagian tengah data diganti simbol sehingga data masih dapat dikenali tanpa membuka seluruh isi.</p>
+            <code>an***@example.com</code>
+          </article>
+          <article class="info-card reveal">
+            <span class="card-index">04</span>
+            <h3>SHA-256 Hashing</h3>
+            <p>Data diubah menjadi sidik jari digital sepanjang 64 karakter hex dan tidak bisa dikembalikan ke teks asli.</p>
+            <code>hash = SHA256(data)</code>
+          </article>
+          <article class="info-card reveal delay-1">
+            <span class="card-index">05</span>
+            <h3>Base64 Encoding</h3>
+            <p>Data dikodekan menjadi format teks yang aman dikirim atau disimpan, lalu bisa didekode kembali.</p>
+            <code>encoded = btoa(data)</code>
+          </article>
+        </div>
+      </section>
+
+      <section class="presentation-section" id="presentation">
+        <div class="presentation-card reveal">
+          <p class="eyebrow">Materi Paparan</p>
+          <h2>Poin yang bisa dijelaskan saat presentasi</h2>
+          <div class="talking-points">
+            <article>
+              <h3>Fungsi Sistem</h3>
+              <p>Sistem membantu mengamankan data dengan mengubah bentuk asli menjadi bentuk terenkripsi atau tersamarkan.</p>
+            </article>
+            <article>
+              <h3>Alur Kerja</h3>
+              <p>Input dipilih, parameter algoritma disiapkan, data diproses, lalu output dan langkah proses ditampilkan.</p>
+            </article>
+            <article>
+              <h3>Keamanan</h3>
+              <p>Caesar cocok untuk edukasi, XOR menunjukkan konsep kunci, masking cocok untuk tampilan publik, SHA-256 untuk sidik jari data, dan Base64 untuk encoding teks.</p>
+            </article>
+            <article>
+              <h3>Keterbatasan</h3>
+              <p>Project ini untuk demonstrasi algoritma. Pada sistem nyata diperlukan algoritma standar seperti AES dan manajemen kunci aman.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
